@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sample Website</title>
+</head>
+
+<body>
+<h1>Student</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+    </tr>
+    </tr>
+</table>
+<br/>
+
+<form action="/students" method="post">
+    Name:
+    <input type="text" name="name">
+    <br/> Email:
+    <input type="text" name="email">
+    <br/> Address:
+    <input type="text" name="address">
+    <br/>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    studentTable = document.querySelector("table")
+    fetch("/students")
+        .then(response => response.json())
+        .then(studentList => {
+            studentList.forEach(bird => {
+                row = document.createElement("tr");
+
+                names = document.createElement("td");
+                names.innerHTML = bird.name;
+                emails = document.createElement("td");
+                emails.innerHTML = bird.email;
+                addresses = document.createElement("td");
+                addresses.innerHTML = bird.address;
+
+                row.appendChild(names);
+                row.appendChild(emails);
+                row.appendChild(addresses);
+                studentTable.appendChild(row);
+            })
+        })
+</script>
+</body>
